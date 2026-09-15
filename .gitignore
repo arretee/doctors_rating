@@ -4,3 +4,6 @@ doctor-rating-token.json
 .firebaserc
 .firebase.indexes.json
 firestore.rules
+.venv
+__pycache__
+/__pycache__

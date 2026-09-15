@@ -2,7 +2,7 @@
 import firebase_admin
 
 from firebase_admin import initialize_app, firestore, credentials, db
-import google.cloud.firestore
+import google.cloud.firestorer
 
 
 export = "/home/pinqwiny/doctors_rating/doctor-rating-token.json"
