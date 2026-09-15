@@ -1,2 +1,6 @@
 ./.idea
 .idea
+doctor-rating-token.json
+.firebaserc
+.firebase.indexes.json
+firestore.rules
