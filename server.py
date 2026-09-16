@@ -4,12 +4,6 @@ import firebase
 
 server = Flask(__name__)
 
-doctors = {
-    1: {"name" : "artem", "specialization": "sigma"},
-    2: {"name" : "anton", "specialization": "alfa"},
-    3: {"name" : "gal", "specialization": "gay"},
-}
-
 
 @server.route("/", methods = ["POST", "GET"])
 def route_index():
@@ -22,7 +16,8 @@ def route_index():
         return redirect("/")
         
     else:
-        return render_template("index.html", doctors=doctors)
+        
+        return render_template("index.html", doctors=firebase.get_all_doctors())
     
     
 @server.route("/login", methods = ["POST", "GET"])
@@ -58,6 +53,27 @@ def route_login_submit():
     else:
         login = request.form.get("username_input")
         return redirect("/")
+    
+    
+@server.route("/register", methods= ["POST", "GET"])
+def route_register():
+    return render_template("register.html")
+
+@server.route("/register_submit", methods=["POST", "GET"])
+def route_register_submit():
+    if request.method == "POST":
+        login = request.form.get("username_input")
+        password = request.form.get("password_input")
+        password_confirm = request.form.get("password_confirm_input")
+        
+        print(login, password, password_confirm)
+        
+        return redirect("/")
+    
+    else:
+        login = request.form.get("username_input")
+        return redirect("/")
+
 
 
 

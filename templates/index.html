@@ -11,12 +11,18 @@
         <form action="/login" method="post">
             <input type = "submit" value = "login" id = "btn_login" />
         </form>
+
+        <form action="/register" method="post">
+            <input type = "submit" value = "register" id = "btn_register" />
+        </form>        
     </div>
     <div>
 
         <table name="doctors_table">
             <tr>
                 <th> Name </th>
+                <th> Specialization </th>
+                <th> Experience </th>
                 <th> Overall Rating </th>
                 <th> Felling </th>
                 <th> Professionalism </th>
@@ -24,7 +30,7 @@
                 <th> Time Wait</th>
             </tr>
 
-            {% for id, doctor in doctors.items() %}
+            {% for doctor in doctors %}
             <tr>
                 <td> {{doctor['name']}} </td>
                 <td> {{doctor['specialization']}}</td>
