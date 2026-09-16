@@ -10,11 +10,6 @@ doctors = {
     3: {"name" : "gal", "specialization": "gay"},
 }
 
-user = {
-    "username": "",
-    "password": ""
-}
-
 
 @server.route("/", methods = ["POST", "GET"])
 def route_index():
@@ -55,6 +50,8 @@ def route_login_submit():
         
         if user == None:
             return render_template("login.html", error = True, error_message = "Account not found")
+        
+        
         
         return redirect("/")
     
