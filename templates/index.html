@@ -2,18 +2,20 @@
 
 {% block head %}
 <title> Doctors Rating</title>
+<img src="../doctor.png">
 {% endblock %}
 
 {% block body %}
 <div class = "content">
     <h1> Doctors rating main page</h1>
     <div>
-        <form action="/login" method="post">
+        <form action="/login" method="post" class = "login_button"> 
             <input type = "submit" value = "login" id = "btn_login" />
         </form>
     </div>
+</div>
+<div class = "doctors">
     <div>
-
         <table name="doctors_table">
             <tr>
                 <th> Name </th>
@@ -34,5 +36,6 @@
         </table>
     </div>
 </div>
+
 
 {% endblock %}
