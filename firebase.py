@@ -22,7 +22,7 @@ users = user_ref.get()
 #CRUD for doctors
 
 #Create a new doctor
-def create_doctor(name, gender, area, specialization, start_work_year, ratings):
+def create_doctor(doc):
     """Create a new doctor document in a collection of doctors in firestore
 
     Args:
@@ -34,12 +34,12 @@ def create_doctor(name, gender, area, specialization, start_work_year, ratings):
         ratings (dict): dictionary of users and their ratings for a doctor. {"user_name": array of ratings (from 0 - 3)}
     """
     doc_ref.add({
-        "name": name,
-        "gender": gender,
-        "area": area,
-        "specialization": specialization,
-        "start_work_year": start_work_year,
-        "ratings": ratings
+        "name": doc["name"],
+        "gender": doc["gender"],
+        "area": doc["area"],
+        "specialization": doc["specialization"],
+        "start_work_year": doc["start_work_year"],
+        "ratings": doc["ratings"]
     })
 
 
@@ -151,6 +151,20 @@ def update_doctor(doctor_id, name, gender, area, specialization, start_work_year
     })
 
 
+def add_doctor_votes(doctor_name, user_name, rates):
+    doc = find_doctor_by_name(doctor_name).to_dict()
+    doc["ratings"][user_name] = rates
+    delete_doctor(doc_ref.where("name", "==", doctor_name).get()[0].id)
+    create_doctor(doc)
+
+
+def find_doctor_by_name(doctor_name):
+    doc = doc_ref.where("name", "==", doctor_name).get()
+    if not doc:
+        return None
+    return doc[0]
+
+
 #Delete a doctor by ID
 def delete_doctor(doctor_id):
     """delete doctor by his id
@@ -159,6 +173,8 @@ def delete_doctor(doctor_id):
         doctor_id (int): doctor id
     """
     doc_ref.document(doctor_id).delete()
+
+
 
 
 #CRUD for users collection
