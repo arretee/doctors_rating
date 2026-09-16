@@ -2,10 +2,9 @@
 import firebase_admin
 
 from firebase_admin import initialize_app, firestore, credentials, db
-import google.cloud.firestorer
 
 
-export = "/home/pinqwiny/doctors_rating/doctor-rating-token.json"
+export = "doctor-rating-token.json"
 cred = credentials.Certificate(export)
 firebase_admin.initialize_app(cred)
 
