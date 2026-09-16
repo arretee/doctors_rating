@@ -5,8 +5,9 @@ import user
 
 server = Flask(__name__)
 user_object = user.User()
+voute_add_doctor = ""
 
-
+# ---------------------------------------- Main route ----------------------------------------
 @server.route("/", methods = ["POST", "GET"])
 def route_index():
     """ Main route parser
@@ -18,10 +19,17 @@ def route_index():
         return redirect("/")
         
     else:
-        
-        return render_template("index.html", doctors=firebase.get_all_doctors_rates())
+        return render_template("index.html", doctors=firebase.get_all_doctors_rates(), auth = user_object.authorized)
     
     
+@server.route("/voute/<string:doctor_name>")
+def route_voute(doctor_name: str):
+    global voute_add_doctor
+    voute_add_doctor = doctor_name
+    
+    return redirect('/vote')
+    
+# ---------------------------------------- Login route ----------------------------------------
 @server.route("/login", methods = ["POST", "GET"])
 def route_login():
     """To route login
@@ -62,7 +70,7 @@ def route_login_submit():
         login = request.form.get("username_input")
         return redirect("/")
     
-    
+# ---------------------------------------- Register route ----------------------------------------
 @server.route("/register", methods= ["POST", "GET"])
 def route_register():
     return render_template("register.html")
@@ -88,8 +96,23 @@ def route_register_submit():
         login = request.form.get("username_input")
         return redirect("/")
 
+# ---------------------------------------- Voutes route ----------------------------------------
+@server.route("/vote", methods = ["POST", "GET"])
+def route_vote():
+    return render_template("vote.html", doctor = voute_add_doctor)
 
-
+@server.route("/vote_submit", methods = ["POST"])
+def route_vote_submit():
+    feeling = request.form.get("select_feeling")
+    professionalism = request.form.get("select_professionalism")
+    price = request.form.get("select_price")
+    time = request.form.get("select_time")
+    
+    
+    
+    print(feeling, professionalism, price, time)
+    return redirect("/")
+    
 
 if __name__ == '__main__':
     server.run(debug=True)

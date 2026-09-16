@@ -45,6 +45,7 @@ class User:
         userF = firebase.find_user_by_name(name)
         if userF:
             return "User already exists"
+            
 
         firebase.create_user(name, password)
         self.name = name

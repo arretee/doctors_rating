@@ -23,16 +23,27 @@
                 <th> Name </th>
                 <th> Specialization </th>
                 <th> Overall Rating </th>
-                <th> Felling </th>
+                <th> Filling </th>
                 <th> Professionalism </th>
                 <th> Price </th>
                 <th> Time Wait</th>
+                {% if auth == true %}
+                    <th> voute </th>
+                {% endif %}
             </tr>
 
             {% for doctor in doctors %}
             <tr>
                 <td> {{doctor['name']}} </td>
                 <td> {{doctor['specialization']}}</td>
+                <td> {{doctor['overall_rating']}}</td>
+                <td> {{doctor['feeling']}} </td> 
+                <td> {{doctor['professionalism']}}</td>
+                <td> {{doctor['price']}}</td>
+                <td> {{doctor['time_wait']}}</td>
+                {% if auth == true %}
+                    <td><a href = "/voute/{{doctor['name']}}"> Add Voute</a></td>
+                {% endif %}
             </tr>
             {% endfor %}
 

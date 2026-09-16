@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Doctors Rating - Vote</title>
+{% endblock %}
+
+{% block body %}
+<div>
+    <form action = "/vote_submit" method="POST">
+
+        <div>
+            <label> Rate your feeling</label>
+        
+            <select name = "select_feeling">
+                <option value = "1"> 1 </option>
+                <option value = "2"> 2 </option>
+                <option value = "3"> 3 </option>
+                <option value = "4"> 4 </option>
+                <option value = "5"> 5 </option>
+            </select>
+        </div>
+
+        <div>
+            <label> Rate doctor {{ doctor }} Professionalism</label>
+        
+            <select name = "select_professionalism">
+                <option value = "1"> 1 </option>
+                <option value = "2"> 2 </option>
+                <option value = "3"> 3 </option>
+                <option value = "4"> 4 </option>
+                <option value = "5"> 5 </option>
+            </select>
+        </div>
+
+        <div>
+            <label> Rate doctor {{ doctor }} price</label>
+        
+            <select name = "select_price">
+                <option value = "1"> 1 </option>
+                <option value = "2"> 2 </option>
+                <option value = "3"> 3 </option>
+                <option value = "4"> 4 </option>
+                <option value = "5"> 5 </option>
+            </select>
+        </div>
+
+
+        <div>
+            <label> Rate the queue time for the doctor {{ doctor }}</label>
+        
+            <select name = "select_time">
+                <option value = "1"> 1 </option>
+                <option value = "2"> 2 </option>
+                <option value = "3"> 3 </option>
+                <option value = "4"> 4 </option>
+                <option value = "5"> 5 </option>
+            </select>
+        </div>
+
+
+        <button> Add Vote</button>
+
+    </form>
+</div>
+{% endblock %}
