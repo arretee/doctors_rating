@@ -108,9 +108,9 @@ def route_vote_submit():
     price = request.form.get("select_price")
     time = request.form.get("select_time")
     
-    
-    
     print(feeling, professionalism, price, time)
+    
+    user_object.add_vote(voute_add_doctor, [int(feeling), int(professionalism), int(price), int(time)])
     return redirect("/")
     
 

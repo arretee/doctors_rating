@@ -54,5 +54,6 @@ class User:
         return True
 
 
-
-    
+    def add_vote(self, doctor_name, votes):
+        if self.authorized:
+            firebase.add_doctor_votes(doctor_name, self.name, votes)
