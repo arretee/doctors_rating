@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block body %}
-<div>
-    
-
+<div class="credentials_wrapper">
+<div class="credentials_main">
+    <h3>Enter your registery credentials</h3>
     <form action="/register_submit" method="POST">
     <input type = "text" placeholder="username" id = "username_input" name = "username_input"/>
     <input type = "password" placeholder="password" id = "password_input" name = "password_input"/>
@@ -21,6 +21,6 @@
             <input type = "submit" value = "login" id = "btn_login" />
         </div>
     </form>
-
+</div>
 </div>
 {% endblock %}
