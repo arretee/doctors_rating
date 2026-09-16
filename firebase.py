@@ -71,6 +71,8 @@ def get_all_doctors():
     return [doc.to_dict() for doc in docs]
 
 
+
+
 #Update a doctor by ID
 def update_doctor(doctor_id, name, gender, area, specialization, start_work_year, ratings):
     """update doctor`s data
@@ -175,7 +177,7 @@ def find_user_by_name(name):
         name (string): user name
 
     Returns:
-        dict: user document as dict
+        dict: user document as dict, None if not found
     """
     user = user_ref.where("name", "==", name).get()
     if not user:
