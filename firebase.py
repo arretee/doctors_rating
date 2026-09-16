@@ -60,7 +60,6 @@ def get_doctor(doctor_id):
         return None
 
 
-#Read all doctors in collection
 def get_all_doctors():
     """get all doctors from firestore
 
@@ -70,6 +69,51 @@ def get_all_doctors():
     docs = doc_ref.get()
     return [doc.to_dict() for doc in docs]
 
+
+#Read all doctors in collection
+def get_all_doctors_rates():
+    """get all doctors from firestore
+
+    Returns:
+        list: A list of all doctor documents as dictionaries
+    """
+    len_rates = 0
+    docs_list = []
+
+    docs = doc_ref.get()
+    for doc in docs:
+        avg_feeling = 0
+        avg_professionalism = 0
+        avg_price = 0
+        avg_wait_time = 0
+
+        doc_ratings = doc.to_dict().get("ratings")
+        user_rates = doc_ratings.values()
+
+        for rate in user_rates:
+            avg_feeling += rate[0]
+            avg_professionalism += rate[1]
+            avg_price += rate[2]
+            avg_wait_time += rate[3]
+            len_rates += 1
+
+        avg_feeling = round(avg_feeling / len_rates, 1)
+        avg_professionalism = round(avg_professionalism / len_rates, 1)
+        avg_price = round(avg_price / len_rates, 1)
+        avg_wait_time = round(avg_wait_time / len_rates, 1)
+
+
+        docs_list.append({
+            "name" : doc["name"],
+            "specialization": doc["specialization"],
+            "overall_rating": round((avg_feeling + avg_wait_time + avg_professionalism + avg_price) / 4, 1),
+            "feeling": avg_feeling,
+            "professionalism": avg_professionalism,
+            "price": avg_price,
+            "time_wait": avg_wait_time
+        })
+
+    return docs_list
 
 
 
@@ -227,4 +271,4 @@ def get_doctor_by_specialization(specialization):
         return [doctor.to_dict() for doctor in doctors]
     return None
 
-print(get_all_doctors())
+f
