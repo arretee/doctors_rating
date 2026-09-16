@@ -1,8 +1,10 @@
 from flask import Flask, render_template, redirect, session, request
 
 import firebase
+import user
 
 server = Flask(__name__)
+user_object = user.User()
 
 
 @server.route("/", methods = ["POST", "GET"])
@@ -17,7 +19,7 @@ def route_index():
         
     else:
         
-        return render_template("index.html", doctors=firebase.get_all_doctors())
+        return render_template("index.html", doctors=firebase.get_all_doctors_rates())
     
     
 @server.route("/login", methods = ["POST", "GET"])
@@ -47,8 +49,14 @@ def route_login_submit():
             return render_template("login.html", error = True, error_message = "Account not found")
         
         
+        status = user_object.auth_try(login, password)
         
-        return redirect("/")
+        if status == True:
+            return redirect("/")
+        
+        else:
+            return render_template("login.html", error = True, error_message = "Authentication failed")
+            
     
     else:
         login = request.form.get("username_input")
@@ -66,9 +74,15 @@ def route_register_submit():
         password = request.form.get("password_input")
         password_confirm = request.form.get("password_confirm_input")
         
-        print(login, password, password_confirm)
+        status = user_object.register_user(login, password, password_confirm)
         
-        return redirect("/")
+        if status == True:
+            return redirect("/")
+        
+        else:
+            return render_template("register.html", error = True, error_message = status)
+            
+        
     
     else:
         login = request.form.get("username_input")
