@@ -77,11 +77,11 @@ def get_all_doctors_rates():
     Returns:
         list: A list of all doctor documents as dictionaries
     """
-    len_rates = 0
     docs_list = []
 
     docs = doc_ref.get()
     for doc in docs:
+        len_rates = 0
         avg_feeling = 0
         avg_professionalism = 0
         avg_price = 0
@@ -96,22 +96,34 @@ def get_all_doctors_rates():
             avg_price += rate[2]
             avg_wait_time += rate[3]
             len_rates += 1
-
+            
         avg_feeling = round(avg_feeling / len_rates, 1)
         avg_professionalism = round(avg_professionalism / len_rates, 1)
         avg_price = round(avg_price / len_rates, 1)
         avg_wait_time = round(avg_wait_time / len_rates, 1)
+        
 
-
-        docs_list.append({
-            "name" : doc["name"],
-            "specialization": doc["specialization"],
-            "overall_rating": round((avg_feeling + avg_wait_time + avg_professionalism + avg_price) / 4, 1),
-            "feeling": avg_feeling,
-            "professionalism": avg_professionalism,
-            "price": avg_price,
-            "time_wait": avg_wait_time
-        })
+        if len_rates > 0:
+            docs_list.append({
+                "name" : doc.to_dict().get("name"),
+                "specialization": doc.to_dict().get("specialization"),
+                "overall_rating": round((avg_feeling + avg_wait_time + avg_professionalism + avg_price) / 4, 1),
+                "feeling": avg_feeling,
+                "professionalism": avg_professionalism,
+                "price": avg_price,
+                "time_wait": avg_wait_time
+            })
+            
+        else:
+            docs_list.append({
+                "name" : doc["name"],
+                "specialization": doc["specialization"],
+                "overall_rating": "N/R",
+                "feeling": "N/R",
+                "professionalism": "N/R",
+                "price": "N/R",
+                "time_wait": "N/R"
+            })
 
     return docs_list
 
@@ -288,14 +300,3 @@ def get_doctor_by_specialization(specialization):
     if doctors:
         return [doctor.to_dict() for doctor in doctors]
     return None
-
-
-create_doctor({
-    "name": "Artem B",
-    "gender": True,
-    "area": "North Israel",
-    "specialization": "neurologist",
-    "start_work_year": 1999,
-    "ratings": {"Gal NotGoat": [1,1,1,1]}
-})
-

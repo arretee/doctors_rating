@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Doctors Rating - Login</title>
+{% endblock %}
+
+{% block body %}
+<div class="login_wrapper">
+<div class = "login_main">
+    <h3>Enter your login credentials</h3>
+    <form action="/login_submit" method="POST">
+    <input type = "text" placeholder="username" id = "username_input" name = "username_input"/>
+    <input type = "password" placeholder="password" id = "password_input" name = "password_input"/>
+    {% if error == true %}
+        <p class = "error_message"> {{ error_message }}</p>
+    {% endif %}
+
+        <div class="wrap">
+            <input type = "submit" value = "login" id = "btn_login" />
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

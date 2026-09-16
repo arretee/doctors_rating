@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Doctors Rating - Register</title>
+{% endblock %}
+
+{% block body %}
+<div>
+    
+
+    <form action="/register_submit" method="POST">
+    <input type = "text" placeholder="username" id = "username_input" name = "username_input"/>
+    <input type = "password" placeholder="password" id = "password_input" name = "password_input"/>
+    <input type = "password" placeholder="confirm password" id = "password_confirm_input" name = "password_confirm_input"/>
+    
+    {% if error == true %}
+        <p class = "error_message"> {{ error_message }}</p>
+    {% endif %}
+
+        <div>
+            <input type = "submit" value = "login" id = "btn_login" />
+        </div>
+    </form>
+
+</div>
+{% endblock %}

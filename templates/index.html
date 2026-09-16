@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title> Doctors Rating</title>
+{% endblock %}
+
+{% block body %}
+<div class = "content">
+    <h1> Doctors rating main page</h1>
+    <div>
+        <form action="/login" method="post" class = "login_button"> 
+            <input type = "submit" value = "login" id = "btn_login" />
+        </form>
+
+        <form action="/register" method="post">
+            <input type = "submit" value = "register" id = "btn_register" />
+        </form>        
+    </div>
+</div>
+<div class = "doctors">
+    <div>
+        <table name="doctors_table">
+            <tr>
+                <th> Name </th>
+                <th> Specialization </th>
+                <th> Overall Rating </th>
+                <th> Feeling </th>
+                <th> Professionalism </th>
+                <th> Price </th>
+                <th> Time Wait</th>
+                {% if auth == true %}
+                    <th> voute </th>
+                {% endif %}
+            </tr>
+
+            {% for doctor in doctors %}
+            <tr>
+                <td> {{doctor['name']}} </td>
+                <td> {{doctor['specialization']}}</td>
+                <td> {{doctor['overall_rating']}}</td>
+                <td> {{doctor['feeling']}} </td> 
+                <td> {{doctor['professionalism']}}</td>
+                <td> {{doctor['price']}}</td>
+                <td> {{doctor['time_wait']}}</td>
+                {% if auth == true %}
+                    <td><a href = "/voute/{{doctor['name']}}"> Add Vote</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
