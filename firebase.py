@@ -140,10 +140,12 @@ def update_doctor(doctor_id, name, gender, area, specialization, start_work_year
 
 
 def add_doctor_votes(doctor_name, user_name, rates):
-    doc = find_doctor_by_name(doctor_name).to_dict()
+    doc = find_doctor_by_name(doctor_name)
+    doc = doc.to_dict()
     doc["ratings"][user_name] = rates
     delete_doctor(doc_ref.where("name", "==", doctor_name).get()[0].id)
     create_doctor(doc)
+
 
 
 def find_doctor_by_name(doctor_name):
@@ -287,4 +289,13 @@ def get_doctor_by_specialization(specialization):
         return [doctor.to_dict() for doctor in doctors]
     return None
 
-add_doctor_votes("Gal Agoat", "Gal NotGoat", [5,5,5,5])
+
+create_doctor({
+    "name": "Artem B",
+    "gender": True,
+    "area": "North Israel",
+    "specialization": "neurologist",
+    "start_work_year": 1999,
+    "ratings": {"Gal NotGoat": [1,1,1,1]}
+})
+
